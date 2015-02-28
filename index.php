@@ -7,17 +7,20 @@
     </head>
     <body>
         <?php
-           require_once './Utility/database.php';
            require_once './Utility/SqlJSON.php';
            
            
-           \UTIL\database::CreateConnection("localhost", "mobile", "autolot","!ambrose");
+          // \UTIL\SqlJSON::CreateConnection("localhost", "mobile", "autolot","!ambrose");
            
-           if(\UTIL\database::IsConnected()) {   }
+           \UTIL\SqlJSON::CreateConnection();
            
-           $result = \UTIL\database::ExecuteResultSet("select * from mobile.StateList");
+           if(\UTIL\SqlJSON::IsConnected()) {   
            
-            echo '<div>' . \UTIL\SqlJSON::GetJSONString($result) . '</div>';
+                $result = \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList");
+
+                 echo '<div>' .  $result . '</div>';
+            
+            }
              
            
           

@@ -8,8 +8,10 @@
  * 
  */
 
+
 namespace UTIL;
 
+require_once './config/configuration.php';
 /**
  * Description of database
  *
@@ -26,13 +28,20 @@ class database {
     private static $m_sDatabase = "";
     private static $m_sServer ="";
     private static $m_oConnection = NULL;
+
+    function __construct() {
+        self::set_Database(\CONFIG\configuration::get_database());
+        self::set_Password(\CONFIG\configuration::get_appPassword());
+        self::set_Server(\CONFIG\configuration::get_server());
+        self::set_UserID(\CONFIG\configuration::get_appUser());
+    }
     
     /**
      * 
      * @return type
      */
     public static function get_UserID()
-    {
+    { 
         return self::$m_sUserID;
     }
     
@@ -120,15 +129,39 @@ class database {
     
     public static function CreateConnection($sServer="",$sDatabase="",$sUserID="",$sPassword="")  
     {
-        if($sServer != "") {  self::set_Server($sServer); }
-        if($sDatabase != "") { self::set_Database($sDatabase); }
-        if($sUserID !="") {self::set_UserID($sUserID);}
-        if($sPassword !="") {self::set_Password($sPassword); }
+        if($sServer == "")
+        {self::set_Server(\CONFIG\configuration::get_server()); }
+        else
+        {self::set_Server($sServer);}
+        
+        if($sDatabase == "") 
+        {self::set_Database(\CONFIG\configuration::get_database()); }
+        else
+        { self::set_Database($sDatabase); }
+        
+        if($sUserID =="")
+            { self::set_UserID(\CONFIG\configuration::get_appUser()); }
+        else
+            { self::set_UserID($sUserID); }
+            
+        if($sPassword =="") 
+            {self::set_Password(\CONFIG\configuration::get_appPassword()); }
+        else
+            {self::set_Password($sPassword); }
         
      
+        try
+        {
+            
          self::set_Connection(new \mysqli(self::get_Server(), self::get_UserID(), self::get_Password(),self::get_Database()));
 
          return self::IsConnected();
+         
+        }
+        catch(Exception $e)
+        {
+            return false;
+        }
          
     }
     
@@ -139,6 +172,7 @@ class database {
        if(self::IsConnected()) {
                         
         $result = self::get_Connection()->query($sSQL);
+        
        }
        
        return $result;
@@ -148,8 +182,6 @@ class database {
     {
        if(self::IsConnected()) {
         self::get_Connection()->query($sSQL);
-        
-        
        }
     }
     
@@ -157,8 +189,6 @@ class database {
     {
        if(self::IsConnected()) {
         self::get_Connection()->query($sSQLCommand);
-        
-        
        }
        
     }
