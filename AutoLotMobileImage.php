@@ -1,6 +1,6 @@
 <?php
 
-require_once './Utility/SqlJSON.php';
+require_once './Utility/database.php';
     
 if($_SERVER['REQUEST_METHOD'] == "POST") {
     
@@ -8,10 +8,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
            
     if(\UTIL\SqlJSON::IsConnected()) {  
        
-         
-       if(filter_input(INPUT_POST,'sStateCD'))
+       if(filter_input(INPUT_POST,'sVinID'))
        {          
-                $param = filter_input(INPUT_POST,'sStateCD');
+                $param = filter_input(INPUT_POST,'sVinID');
                 
                 $result = \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList where StateCD='" . $param . "'");
                             
