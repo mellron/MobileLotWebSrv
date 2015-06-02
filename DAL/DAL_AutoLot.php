@@ -25,5 +25,87 @@ class DAL_AutoLot {
         
     }
     
-    //put your code here
+    /**
+     * @name $getState 
+     * @return result of all states for drop downs
+     * 
+     */
+    function getStates()
+    {
+         
+        try 
+        {
+            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+        }
+        catch(Exception $e)
+        {
+             return '';   
+        }
+        
+        return '';
+                            
+    }
+    
+    
+    function BasicSearch($iPage,$iPageSize,$iStartPrice,$iEndPrice,$sMakes,$sModels,$sSites,$iStartYear,$iEndYear,$iMaxMileage,$iSortField,$iSortDirection)
+    {
+        try 
+        {
+            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+        }
+        catch(Exception $e)
+        {
+             return '';   
+        }
+        
+        return '';
+        
+    }
+    
+    function getAutoByVinID($sVinID)
+    {
+        try 
+        {
+            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+        }
+        catch(Exception $e)
+        {
+             return '';   
+        }
+        
+        return '';
+    }
+    
+    function getNumberOfAutoImages($sVinID)
+    {
+        try 
+        {
+            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+        }
+        catch(Exception $e)
+        {
+             return '';   
+        }
+        
+        return '';
+    }
+    
+    function getMakes($iLocationID)
+        {
+        try 
+        {
+            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+        }
+        catch(Exception $e)
+        {
+             return '';   
+        }
+        
+        return '';
+    }
+    
+    function getModels($iLocationID,$iMakeID)
+    {
+        
+    }
 }
