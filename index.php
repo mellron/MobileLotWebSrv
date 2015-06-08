@@ -7,20 +7,26 @@
     </head>
     <body>
         <?php
-           require_once './Utility/SqlJSON.php';
+          // require_once './Utility/SqlJSON.php';
+           require_once './DAL/DAL_AutoLot.php';
            
            
           // \UTIL\SqlJSON::CreateConnection("localhost", "mobile", "autolot","!ambrose");
            
-           \UTIL\SqlJSON::CreateConnection();
+          // \UTIL\SqlJSON::CreateConnection();
            
-           if(\UTIL\SqlJSON::IsConnected()) {   
+       
            
-                $result = \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList");
+                $result = \UTIL\SqlJSON::ExecuteCmdwithResultSetTotals("call mobile.Get_AutoByVinID('19UUA8F57AA010750')");
 
-                 echo '<div>' .  $result . '</div>';
-            
-            }
+                 echo '<div>' .  $result . '</div><div></div>';
+               
+  
+                 $result2 = \DAL\DAL_AutoLot::getAutoByVinID('19UUA8F57AA010750');
+                 echo '<div>' .  $result2 . '</div>';
+           
+               
+       
              
            
           

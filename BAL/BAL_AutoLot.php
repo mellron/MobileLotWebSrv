@@ -1,29 +1,19 @@
 <?php
 
-namespace DAL;
+namespace BAL;
 
-require_once './Utility/SqlJSON.php';
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Template
- * and open the template in the editor.
- */
+require_once '../DAL/BAL_AutoLot.php';
+ 
 
 /**
- * Description of DAL_AutoLot
+ * Description of BAL_AutoLot
  *
  * @author doug
  */
 
-class DAL_AutoLot {
+class BAL_AutoLot {
     
 
-    function test()
-    {
-        \UTIL\database::set_Database('mobile');
-        
-        
-    }
     
     /**
      * @name $getState 
@@ -35,7 +25,7 @@ class DAL_AutoLot {
          
         try 
         {
-            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+            return \DAL\DAL_AutoLot::getStates();
         }
         catch(Exception $e)
         {
@@ -46,11 +36,12 @@ class DAL_AutoLot {
                             
     }
     
+    
     static function BasicSearch($iPage,$iPageSize,$iStartPrice,$iEndPrice,$sMakes,$sModels,$sSites,$iStartYear,$iEndYear,$iMaxMileage,$iSortField,$iSortDirection)
     {
         try 
         {
-            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+            return \DAL\DAL_AutoLot::BasicSearch($iPage, $iPageSize, $iStartPrice, $iEndPrice, $sMakes, $sModels, $sSites, $iStartYear, $iEndYear, $iMaxMileage, $iSortField, $iSortDirection); 
         }
         catch(Exception $e)
         {
@@ -65,7 +56,7 @@ class DAL_AutoLot {
     {
         try 
         {
-            return \UTIL\SqlJSON::ExecuteCmdwithResultSetTotals("call mobile.Get_AutoByVinID('". $sVinID ."')"); 
+           return \DAL\DAL_AutoLot::getAutoByVinID($sVinID);
         }
         catch(Exception $e)
         {
@@ -79,7 +70,7 @@ class DAL_AutoLot {
     {
         try 
         {
-            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+            return \DAL\DAL_AutoLot::getNumberOfAutoImages($sVinID);
         }
         catch(Exception $e)
         {
@@ -90,10 +81,10 @@ class DAL_AutoLot {
     }
     
     static function getMakes($iLocationID)
-        {
+     {
         try 
         {
-            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+            return \DAL\DAL_AutoLot::getMakes($iLocationID);
         }
         catch(Exception $e)
         {
@@ -105,11 +96,20 @@ class DAL_AutoLot {
     
     static function getModels($iLocationID,$iMakeID)
     {
+        try 
+        {
+            return \DAL\DAL_AutoLot::getModels($iLocationID, $iMakeID);
+        }
+        catch(Exception $e)
+        {
+             return '';   
+        }
+        
         return '';
     }
     
-    static function getValidLocations()
-    {
-        return '';
-    }
+     static function getValidLocations()
+     {
+         return \DAL\DAL_AutoLot::getValidLocations();
+     }
 }
