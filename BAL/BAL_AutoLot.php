@@ -2,7 +2,7 @@
 
 namespace BAL;
 
-require_once '../DAL/BAL_AutoLot.php';
+require_once './DAL/DAL_AutoLot.php';
  
 
 /**
@@ -66,19 +66,7 @@ class BAL_AutoLot {
         return '';
     }
     
-    static function getNumberOfAutoImages($sVinID)
-    {
-        try 
-        {
-            return \DAL\DAL_AutoLot::getNumberOfAutoImages($sVinID);
-        }
-        catch(Exception $e)
-        {
-             return '';   
-        }
-        
-        return '';
-    }
+ 
     
     static function getMakes($iLocationID)
      {

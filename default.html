@@ -19,11 +19,11 @@ and open the template in the editor.
         $( document ).ready(function(){ 
             
     
-                var sData =  {sStateCD : "FL"};
+                var sData =  {service : "getValidLocations"};
          
                 $.ajax({
                         type: "POST",      
-                        url: "States.php",
+                        url: "AutoLotService.php",
                         data: sData,                              
                         success: function(records) { 
                                 
@@ -31,7 +31,7 @@ and open the template in the editor.
                                  var _sHTML = '<option value="-1" selected>All Locations</option>\n';                     
 
                                  $.each(_oRecords.Records, function (index, record) {
-                                    _sHTML += '<option value="' + record.StateCD + '">' + record.StateNM+ '</option>\n';	          	                     
+                                    _sHTML += '<option value="' + record.LocationID+ '">' + record.LocationDESC + '</option>\n';	          	                     
                                  });  
 
                                 $('#MyStates').html(_sHTML);

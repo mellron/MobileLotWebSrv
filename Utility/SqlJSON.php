@@ -127,7 +127,7 @@ class SqlJSON extends database
            if($bIncludeTotalField)   
            {
                
-             $sJSON = str_replace('"}', '",TotalRecords":"' . strval($oresult->num_rows) . '"}', $sJSON);
+             $sJSON = str_replace('"}', '","TotalRecords":"' . strval($oresult->num_rows) . '"}', $sJSON);
            
            }
                

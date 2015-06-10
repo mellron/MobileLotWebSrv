@@ -17,13 +17,7 @@ require_once './Utility/SqlJSON.php';
 
 class DAL_AutoLot {
     
-
-    function test()
-    {
-        \UTIL\database::set_Database('mobile');
-        
-        
-    }
+ 
     
     /**
      * @name $getState 
@@ -50,7 +44,29 @@ class DAL_AutoLot {
     {
         try 
         {
-            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+            /*
+             * 
+             * CREATE PROCEDURE mobile.SEL_AutoLotSearch
+(
+ 
+                IN iPage                  INT, 
+                    IN iPageSize              INT,
+                    IN Makes                 VARCHAR(450),
+                    IN Models                VARCHAR(450),
+                    IN Sites                 VARCHAR(450),
+                    IN StartPrice            DECIMAL(13,2),
+                    IN EndPrice              DECIMAL(13,2),
+                    IN StartYear             INT,
+                    IN EndYear               INT,
+                    IN MaxMileage            INT,
+                    IN intSortField          INT,            
+                    IN intSortDirection      INT 
+
+             */
+          //  $test = "call mobile.SEL_AutoLotSearch(" . $iPage . "," . $iPageSize . "," . $iStartPrice."." . $iEndPrice . ",'".$sMakes."'.'".$sModels."'.'".$sSites."'.".$iStartYear.".".$iEndYear.".".$iMaxMileage.".".$iSortField."." . $iSortDirection . ")";
+                   
+            return \UTIL\SqlJSON::ExecuteCmdwithResultSetTotals("call mobile.SEL_AutoLotSearch(" . $iPage . "," . $iPageSize . "," . $iStartPrice."." . $iEndPrice . ",'".$sMakes."'.'".$sModels."'.'".$sSites."'.".$iStartYear.".".$iEndYear.".".$iMaxMileage.".".$iSortField."." . $iSortDirection . ")"); 
+            
         }
         catch(Exception $e)
         {
@@ -75,7 +91,7 @@ class DAL_AutoLot {
         return '';
     }
     
-    static function getNumberOfAutoImages($sVinID)
+   /* static function getNumberOfAutoImages($sVinID)
     {
         try 
         {
@@ -87,13 +103,13 @@ class DAL_AutoLot {
         }
         
         return '';
-    }
+    }*/
     
     static function getMakes($iLocationID)
-        {
+   {
         try 
         {
-            return \UTIL\SqlJSON::ExecuteResultSet("select * from mobile.StateList"); 
+            return \UTIL\SqlJSON::ExecuteCmdwithResultSetTotals("call SEL_AutoMakes(" . $iLocationID . ")"); 
         }
         catch(Exception $e)
         {
@@ -105,11 +121,11 @@ class DAL_AutoLot {
     
     static function getModels($iLocationID,$iMakeID)
     {
-        return '';
+        return \UTIL\SqlJSON::ExecuteCmdwithResultSetTotals("call SEL_AutoModels(" . $iLocationID . "," .$iMakeID . ")");
     }
     
     static function getValidLocations()
     {
-        return '';
+        return \UTIL\SqlJSON::ExecuteCmdwithResultSetTotals("call SEL_ValidLocations()");
     }
 }
